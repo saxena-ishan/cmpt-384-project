@@ -1,6 +1,9 @@
 /*global $*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { index } from './pages';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+
 
 //Root sass file for webpack to compile
 import './sass/main';
@@ -11,7 +14,9 @@ import './sass/main';
 class App extends Component {
   render() {
     return (
-      <div className="boilerplate-div">react-boilerplate</div>
+      <Route path="/" component={index} />
+
+      // <div className="boilerplate-div">react-boilerplate</div>
     )
   }
 }
