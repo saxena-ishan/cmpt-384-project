@@ -91,6 +91,12 @@
                                 olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
                             }
 
+                            if (r["Gender"] === "Men") {
+                                olympicData[r["Edition"]]["males"] += 1;
+                            } else {
+                                olympicData[r["Edition"]]["females"] += 1;
+                            }
+
                         }
                         // if this athlete's continent does not exist in this edition, inintialize it and fill in the rest of the athlete's details
                         else {
@@ -105,6 +111,11 @@
                                 G: 0
                             };
                             olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                            if (r["Gender"] === "Men") {
+                                olympicData[r["Edition"]]["males"] += 1;
+                            } else {
+                                olympicData[r["Edition"]]["females"] += 1;
+                            }
                         }
                     }
                     // if the editon does not exist, initialise a structure for it and fill in the rest of the athlete's details
@@ -131,13 +142,18 @@
                             G: 0
                         };
                         olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                        if (r["Gender"] === "Men") {
+                            olympicData[r["Edition"]]["males"] += 1;
+                        } else {
+                            olympicData[r["Edition"]]["females"] += 1;
+                        }
                     }
                 });
 
 
-                // TODO: UPDATE THE MALE/FEMALE COUNTS for the root structure and all the sub structures
                 // TODO: UPDATE THE totals for all medals in the root structure and all the substuctures,
                 //       currently this only beng done for the countries, (we need for the continents, editions, etc)
+                console.log("Olympic Data: \n")
                 console.log(olympicData);
 
             });
