@@ -1,7 +1,7 @@
 /*global $*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { index } from './pages';
+import Home from './pages/Home';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 
@@ -14,7 +14,7 @@ import './sass/main';
 class App extends Component {
   render() {
     return (
-      <Route path="/" component={index} />
+      <Home />
 
       // <div className="boilerplate-div">react-boilerplate</div>
     )
