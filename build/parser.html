@@ -13,89 +13,93 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <script>
-        var olympicData = {};
-        var countryToContinent = {};
+        var olympicData = new Object();
+        var countryToContinentStruct = new Object();
 
-        d3.csv("./assets/data/medalists.csv").then((response) => {
-            var keys = {}
-            response.forEach((r) => {
-                if (!keys[r["NOC"]]) {
-                    keys[r["NOC"]] = 1;
-                }
-            })
-            console.log(keys);
-
-            d3.csv("./assets/data/countries.csv").then((rp) => {
-                var badKeys = {}
-                rp.forEach((r) => {
-                    if (!badKeys[r["Three_Letter_Country_Code"]]) {
-                        badKeys[r["Three_Letter_Country_Code"]] = 1;
-                    }
-                })
-
-                console.log(badKeys);
-                Object.keys(keys).forEach((k) => {
-                    if (!badKeys[k]) {
-                        console.log(k);
-                    }
-                })
-            })
-
-
-        });
+        // d3.csv("./assets/data/medalists.csv").then((response) => {
+        //     var keys = {}
+        //     response.forEach((r) => {
+        //         if (!keys[r["NOC"]]) {
+        //             keys[r["NOC"]] = 1;
+        //         }
+        //     })
+        //     console.log(keys);
+        //     d3.csv("./assets/data/countries.csv").then((rp) => {
+        //         var badKeys = {}
+        //         rp.forEach((r) => {
+        //             if (!badKeys[r["Three_Letter_Country_Code"]]) {
+        //                 badKeys[r["Three_Letter_Country_Code"]] = 1;
+        //             }
+        //         })
+        //         console.log(badKeys);
+        //         Object.keys(keys).forEach((k) => {
+        //             if (!badKeys[k]) {
+        //                 console.log(k);
+        //             }
+        //         })
+        //     })
+        // });
 
         d3.csv("./assets/data/countries.csv").then((response) => {
             response.forEach((element) => {
-                if (!countryToContinent[element.Three_Letter_Country_Code]) {
-                    countryToContinent[element.Three_Letter_Country_Code] = element.Continent_Code;
+                if (!countryToContinentStruct[element.Three_Letter_Country_Code]) {
+                    countryToContinentStruct[element.Three_Letter_Country_Code] = element.Continent_Code;
                 }
-            })
-        });
+            });
 
-        // console.log(countryToContinent)
+            function country_to_continent(country) {
+                if (countryToContinentStruct[country]) {
+                    return countryToContinentStruct[country]
+                } else {
+                    return false
+                }
+            }
 
-        function createContinentStructure() {
-            let allContinents = {};
+            d3.csv("./assets/data/medalists.csv").then((response) => {
+                response.forEach((r) => {
+                    // If the edition exists, proceed
+                    if (olympicData[r["Edition"]]) {
 
-            d3.csv("./assets/data/countries.csv").then((response) => {
-                // console.log(response)
+                        // does this athlete's continent exist in this edition?
+                        if (olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])]) {
 
-                response.forEach((element) => {
-                        // console.log(element.Continent_Code)
-                        if (!allContinents[element.Continent_Code]) {
-                            allContinents[element.Continent_Code] = {
-                                color: "",
-                                total: {
+                            // does this athlete's country exist in this continent object
+                            if (olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]]) {
+                                olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                            }
+
+                            // if the athlete's country does not exist in this continent object, initialize it and fill in the rest of the athlete's details
+                            else {
+                                let newContinent = country_to_continent(r["NOC"]);
+                                let newCountry = r["NOC"];
+                                olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
+                                    countryName: "",
                                     B: 0,
                                     S: 0,
                                     G: 0
-                                }
-                            };
+                                };
+                                olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                            }
+
                         }
-                        if (allContinents[element.Continent_Code]) {
+                        // if this athlete's continent does not exist in this edition, inintialize it and fill in the rest of the athlete's details
+                        else {
+                            let newContinent = country_to_continent(r["NOC"]);
+                            let newCountry = r["NOC"];
 
-                            allContinents[element.Continent_Code][element.Three_Letter_Country_Code] = {
-                                countryName: element.Country_Name,
-
+                            olympicData[r["Edition"]]["continents"][newContinent] = {};
+                            olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
+                                countryName: "",
                                 B: 0,
                                 S: 0,
                                 G: 0
-                            }
+                            };
+                            olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
                         }
-                    })
-                    // console.log(allContinents)
-            });
-
-            return allContinents;
-        }
-
-        d3.csv("./assets/data/medalists.csv").then((response) => {
-            // console.log(response)
-
-            // Create olympicData Object
-            response.forEach((element) => {
-                    if (!olympicData[element.Edition]) {
-                        olympicData[element.Edition] = {
+                    }
+                    // if the editon does not exist, initialise a structure for it and fill in the rest of the athlete's details
+                    else {
+                        olympicData[r["Edition"]] = {
                             males: 0,
                             females: 0,
                             total: {
@@ -103,20 +107,109 @@
                                 S: 0,
                                 G: 0
                             },
-                            continents: createContinentStructure()
+                            continents: {}
+                        }
+
+                        let newContinent = country_to_continent(r["NOC"]);
+                        let newCountry = r["NOC"];
+
+                        olympicData[r["Edition"]]["continents"][newContinent] = {};
+                        olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
+                            countryName: "",
+                            B: 0,
+                            S: 0,
+                            G: 0
                         };
-
+                        olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
                     }
-                })
-                // console.log(olympicData)
+                });
 
 
+                // TODO: FILL IN COUNTRY NAMES FOR ALL ATHLETES
+                // TODO: UPDATE THE MALE/FEMALE COUNTS for the root structure and all the sub structures
+                // TODO: UPDATE THE totals for all medals in the root structure and all the substuctures,
+                //       currently this only beng done for the countries, (we need for the continents, editions, etc)
+                console.log(olympicData);
 
-            // Populate olympicData object with data fom medalists.csv
-            response.forEach((element) => {
-                // console.log("lol" + olympicData[element.Edition])
-            })
+            });
+
         });
+
+        // function createContinentStructure(response) {
+        //     var allContinents = new Object();
+
+        //     // console.log(response)
+
+        //     response.forEach((element) => {
+        //             // console.log(element.Continent_Code)
+        //             if (!allContinents[element.Continent_Code]) {
+        //                 allContinents[element.Continent_Code] = {
+        //                     color: "",
+        //                     total: {
+        //                         B: 0,
+        //                         S: 0,
+        //                         G: 0
+        //                     }
+        //                 };
+        //             }
+        //             if (allContinents[element.Continent_Code]) {
+
+        //                 allContinents[element.Continent_Code][element.Three_Letter_Country_Code] = {
+        //                     countryName: element.Country_Name,
+
+        //                     B: 0,
+        //                     S: 0,
+        //                     G: 0
+        //                 }
+        //             }
+        //         })
+        //         // console.log(allContinents)
+
+        //     return allContinents;
+        // }
+
+        // d3.csv("./assets/data/medalists.csv").then((response) => {
+        // console.log(response)
+
+        // // Create olympicData Object
+        // response.forEach((element) => {
+        //     if (!olympicData[element.Edition]) {
+        //         var thingy = {};
+        //         d3.csv("./assets/data/countries.csv").then((response) => {
+        //             thingy = createContinentStructure(response);
+        //         })
+        //         console.log(thingy)
+        //         olympicData[element.Edition] = {
+        //             males: 0,
+        //             females: 0,
+        //             total: {
+        //                 B: 0,
+        //                 S: 0,
+        //                 G: 0
+        //             },
+        //             continents: thingy
+        //         };
+
+        //         console.log(olympicData[element.Edition]["continents"])
+        //     }
+        // })
+        // console.log(olympicData)
+
+
+
+        // // Populate olympicData object with data fom medalists.csv
+        // response.forEach((athlete, i) => {
+        // // console.log(country_to_continent(athlete.NOC))
+        // if (i < 2) {
+        //     let athleteCountry = athlete.NOC,
+        //         athleteContinent = country_to_continent(athleteCountry)
+
+        //     console.log(athleteCountry)
+        //     console.log(athleteContinent)
+        //     console.log(olympicData[athlete.Edition]["continents"])
+        // }
+        // })
+        // });
     </script>
 
 </body>
