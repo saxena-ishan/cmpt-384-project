@@ -75,6 +75,9 @@
                             // does this athlete's country exist in this continent object
                             if (olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]]) {
                                 olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])]["total"][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["continents"]["total"][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["total"][r["Medal"].charAt(0)] += 1
                             }
 
                             // if the athlete's country does not exist in this continent object, initialize it and fill in the rest of the athlete's details
@@ -82,6 +85,13 @@
                                 let newContinent = country_to_continent(r["NOC"]);
                                 let newCountry = r["NOC"];
                                 // console.log(r)
+                                olympicData[r["Edition"]]["continents"][newContinent] = {
+                                    total: {
+                                        B: 0,
+                                        S: 0,
+                                        G: 0
+                                    }
+                                };
                                 olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
                                     countryName: country_to_name(r["NOC"]),
                                     B: 0,
@@ -89,6 +99,10 @@
                                     G: 0
                                 };
                                 olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])]["total"][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["continents"]["total"][r["Medal"].charAt(0)] += 1
+                                olympicData[r["Edition"]]["total"][r["Medal"].charAt(0)] += 1
+
                             }
 
                             if (r["Gender"] === "Men") {
@@ -103,7 +117,13 @@
                             let newContinent = country_to_continent(r["NOC"]);
                             let newCountry = r["NOC"];
 
-                            olympicData[r["Edition"]]["continents"][newContinent] = {};
+                            olympicData[r["Edition"]]["continents"][newContinent] = {
+                                total: {
+                                    B: 0,
+                                    S: 0,
+                                    G: 0
+                                }
+                            };
                             olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
                                 countryName: country_to_name(r["NOC"]),
                                 B: 0,
@@ -111,6 +131,9 @@
                                 G: 0
                             };
                             olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                            olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])]["total"][r["Medal"].charAt(0)] += 1
+                            olympicData[r["Edition"]]["continents"]["total"][r["Medal"].charAt(0)] += 1
+                            olympicData[r["Edition"]]["total"][r["Medal"].charAt(0)] += 1
                             if (r["Gender"] === "Men") {
                                 olympicData[r["Edition"]]["males"] += 1;
                             } else {
@@ -128,13 +151,25 @@
                                 S: 0,
                                 G: 0
                             },
-                            continents: {}
+                            continents: {
+                                total: {
+                                    B: 0,
+                                    S: 0,
+                                    G: 0
+                                }
+                            }
                         }
 
                         let newContinent = country_to_continent(r["NOC"]);
                         let newCountry = r["NOC"];
 
-                        olympicData[r["Edition"]]["continents"][newContinent] = {};
+                        olympicData[r["Edition"]]["continents"][newContinent] = {
+                            total: {
+                                B: 0,
+                                S: 0,
+                                G: 0
+                            }
+                        };
                         olympicData[r["Edition"]]["continents"][newContinent][newCountry] = {
                             countryName: country_to_name(r["NOC"]),
                             B: 0,
@@ -142,6 +177,9 @@
                             G: 0
                         };
                         olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])][r["NOC"]][r["Medal"].charAt(0)] += 1
+                        olympicData[r["Edition"]]["continents"][country_to_continent(r["NOC"])]["total"][r["Medal"].charAt(0)] += 1
+                        olympicData[r["Edition"]]["continents"]["total"][r["Medal"].charAt(0)] += 1
+                        olympicData[r["Edition"]]["total"][r["Medal"].charAt(0)] += 1
                         if (r["Gender"] === "Men") {
                             olympicData[r["Edition"]]["males"] += 1;
                         } else {
@@ -149,6 +187,7 @@
                         }
                     }
                 });
+
 
 
                 // TODO: UPDATE THE totals for all medals in the root structure and all the substuctures,
