@@ -1,8 +1,7 @@
 /*global $*/
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Home from './pages/Home';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Home } from './pages';
 
 
 //Root sass file for webpack to compile
