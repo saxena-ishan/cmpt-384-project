@@ -17,15 +17,21 @@ export function updateYears(year, remove) {
             });
         }
     };
-}
+};
 
 export const setSingleMax = (max) => {
     return { type: types.SET_SINGLE_MAX, max };
-} 
+};
 
 export const setTotalMax = (max) => {
     return { type: types.SET_TOTAL_MAX, max };
-}
+};
 
+export const setMedalTally = (data) => {
+    return { type: types.SET_MEDAL_TALLY, data };
+};
 
+export const setTopGames = (data) => {
+    return { type: types.SET_TOP_GAMES, data };
+};
 
