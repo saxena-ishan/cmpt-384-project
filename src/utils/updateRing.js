@@ -1,6 +1,6 @@
 import { select, easeCubic } from "d3";
 
-export function updateRing(continent, strokeWidth, radius, start, end) {
+export function updateRing(continent, year, strokeWidth, radius, start, end) {
 
     var innerGap = 5;
     var barWidth = 20;
@@ -18,7 +18,7 @@ export function updateRing(continent, strokeWidth, radius, start, end) {
         let height = 5 + Math.round(Math.random() * ((radius - 35) - 5))
         let width = barWidth
 
-        select(`path.${medal}-bar.${continent}.male`)
+        select(`path.${medal}-bar.${continent}-${year}.male`)
             .attr('d', rect(x, y, barWidth / 2, 0, barWidth / 4))
             .attr("transform", `rotate(180, ${rotationPoint}, ${radius - 3.5})`)
             .transition()
@@ -28,7 +28,7 @@ export function updateRing(continent, strokeWidth, radius, start, end) {
             .on("start", start)
             .on("end", end);
 
-        select(`text.${medal}-bar-text.${continent}.male`)
+        select(`text.${medal}-bar-text.${continent}-${year}.male`)
             .attr('x', x + (width / 2))
             .attr('y', y - height - 6)
             .text(`${height}`);
@@ -37,7 +37,7 @@ export function updateRing(continent, strokeWidth, radius, start, end) {
         x = initialPoint + ((barWidth + innerGap) * i);
         y = radius + 1.5;
 
-        select(`path.${medal}-bar.${continent}.female`)
+        select(`path.${medal}-bar.${continent}-${year}.female`)
             .attr('d', rect(x, y, barWidth / 2, 0, barWidth / 4))
             .transition()
             .ease(easeCubic)
@@ -46,7 +46,7 @@ export function updateRing(continent, strokeWidth, radius, start, end) {
             .on("start", start)
             .on("end", end);
 
-        select(`text.${medal}-bar-text.${continent}.female`)
+        select(`text.${medal}-bar-text.${continent}-${year}.female`)
             .attr('x', x + width / 2)
             .attr('y', y + height + 18)
             .text(`${height}`);
