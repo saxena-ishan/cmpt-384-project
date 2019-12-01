@@ -2,22 +2,37 @@ import * as types from './actionTypes';
 
 export function updateYears(year, remove) {
     return (dispatch, getState) => {
-        const { years } = getState();
-    
+        const { years, medalTally } = getState().delta;
+        var newYears = [], 
+            singleMax = Number.NEGATIVE_INFINITY,
+            totalMax = Number.NEGATIVE_INFINITY;
+        
         if (remove) {
-            dispatch({ 
-                type: types.UPDATE_YEARS,
-                years: years.filter((y) => y !== year)
-            });
+            newYears = years.filter((y) => y !== year);
         }
         else {
-            dispatch({ 
-                type: types.UPDATE_YEARS,
-                years: years.map((y) => y).push(year)
-            });
+            newYears = years.map((y) => y);
+            newYears.push(year);
         }
+        newYears.forEach((y) => {
+            if (singleMax < medalTally[y]["max"]) {
+                singleMax = medalTally[y]["max"];
+            }
+
+            if (totalMax < medalTally[y]["totalMedalMax"]) {
+                totalMax = medalTally[y]["totalMedalMax"];
+            }
+        });
+
+        dispatch(setYears(newYears));
+        dispatch(setSingleMax(singleMax));
+        dispatch(setTotalMax(totalMax));
     };
 };
+
+const setYears = (years) => {
+    return { type: types.SET_SINGLE_MAX, years };
+}
 
 export const setSingleMax = (max) => {
     return { type: types.SET_SINGLE_MAX, max };
