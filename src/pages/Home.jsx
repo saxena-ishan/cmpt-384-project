@@ -1,10 +1,11 @@
-/*global $*/
 import React, { Component } from 'react';
+import { StatsContainer } from "../components"
 
 export default class Home extends Component {
+
     render() {
         return (
-            <div className="boilerplate-div">react-boilerplate</div>
+            <StatsContainer />
         )
     }
 }
