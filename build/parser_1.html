@@ -24,7 +24,7 @@
             });
 
             function country_to_continent(country) {
-                if (countryToContinentStruct[country]) {
+                if (countryToContinentStruct[country] || countryToContinentStruct[country] === "") {
                     return countryToContinentStruct[country]
                 } else {
                     return false
