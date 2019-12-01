@@ -17,33 +17,42 @@ class OlympicTimeline extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isSelected: false
+            isSelected: false,
+            curYear: '0'
         }
+        this.clickHandle = this.clickHandle.bind(this);
     }
 
-    CustomOpenMarker = (y) => <span style={dotStyle} onClick={(() => this.testButton(y))}>⚫</span>;
-    CustomCloseMarker = (y) => <span style={dotStyle} onClick={(() => this.testButton(y))}>✖</span>;
-
-    testButton(year) {
-        this.setState({ isSelected: !this.state.isSelected })
-
-        this.props.actions.updateYears(''+year, this.state.isSelected);
-
-        console.log("Is selected = " + this.state.isSelected + " : " + year)
+    componentDidMount() {
+        const { year } = this.props;
+        this.setState({curYear: year})
+        
     }
+
+    clickHandle() {
+        this.setState({isSelected: !this.state.isSelected})
+
+        this.props.actions.updateYears(''+this.state.curYear, this.state.isSelected);
+        console.log("Is selected = " + this.state.isSelected + " : " + this.state.curYear)
+    }
+
+    CustomOpenMarker = () => <span style={dotStyle} >⚫</span>;
+    CustomCloseMarker = () => <span style={dotStyle} >✖</span>;
 
     render() {
-        const { year } = this.props;
+
         return (
-            <div style={timelineDivStyle}>
+            <div className="individualTimeline" style={timelineDivStyle} 
+            onClick={this.clickHandle}>
+
 
                 <Timeline>
                     <Events>
                         {
                             this.state.isSelected ?
-                                <TextEvent date={year} text="" marker={() => this.CustomCloseMarker(year)}></TextEvent>
+                                <TextEvent date={this.state.curYear} text="" marker={() => this.CustomCloseMarker()}></TextEvent>
                                 :
-                                <TextEvent date={year} text="" marker={() => this.CustomOpenMarker(year)}></TextEvent>
+                                <TextEvent date={this.state.curYear} text="" marker={() => this.CustomOpenMarker()}></TextEvent>
                         }
 
                     </Events>

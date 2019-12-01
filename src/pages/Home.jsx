@@ -19,6 +19,7 @@ class Home extends Component {
         }
     }
 
+
     componentDidMount() {
         const { actions } = this.props;
 
@@ -47,15 +48,19 @@ class Home extends Component {
         return (
 
             <div style={divStyle}>
-                <div className="boilerplate-div">react-boilerplate</div>
 
-                <div style={leftContainer}>
+                <div className="page-title">
+                    {/* <text className="boilerplate-div" style={titleStyle}>react-boilerplate</text> */}
+                    <img src="assets/olympicRings.png"  style={imageStyle} alt="Olympic Rings" width="470" height="240"></img>
+                </div>
+
+                <div className="timeline-div" style={leftContainer}>
                     <div className="olympicTimeline">
                         {this.createEvent()}
                     </div>
                 </div>
 
-                <div style={rightContainer}>
+                <div className="stats-div" style={rightContainer}>
                     <StatsContainer />
 
                 </div>
@@ -68,13 +73,27 @@ class Home extends Component {
 }
 
 
+
+document.getElementsByTagName("BODY")[0].onresize = function() {myFunction()};
+var x = $(window).width() -60;
+
+const titleStyle={
+    position: 'relative',
+    display: 'grid'
+}
+const imageStyle={
+    position: 'relative',
+    display: 'grid',
+    left: x - (x/2) - 235 -15
+}
+
 const divStyle = {
     border: '1px solid black',
     outlineStyle: 'solid',
     outlineColor: 'red',
-    height: '100px'
+    height: 'auto'
 }
-const leftContainer = {
+var leftContainer = {
     border: '1px solid black',
     outlineStyle: 'solid',
     outlineColor: 'green',
@@ -82,15 +101,28 @@ const leftContainer = {
     float: 'left',
     height: '100%'
 }
-const rightContainer = {
+var rightContainer = {
     border: '1px solid black',
     outlineStyle: 'solid',
     outlineColor: 'green',
-    width: '85%',
+    width: x - 80,
     float: 'right',
     height: '100%'
 }
 
+// // Trying to get the div width to update when window is resized
+// function myFunction() {
+//   x = $(window).width() -60;
+//   rightContainer = {
+//     border: '1px solid black',
+//     outlineStyle: 'solid',
+//     outlineColor: 'green',
+//     width: x - 80,
+//     float: 'right',
+//     height: '100%'
+// }
+//   console.log(x)
+// }
 
 function mapStateToProps(state) {
     return {
