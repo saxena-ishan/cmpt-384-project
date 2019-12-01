@@ -35,7 +35,9 @@ export default class Ring extends Component {
                  stroke={color}
                  strokeWidth={strokeWidth}
                  title={continent}
-                ><title>{continent}</title></circle>
+                >
+                    <title>{continent}</title>
+                </circle>
 
                 <g className="ring-axis-elements">
                     <line 
