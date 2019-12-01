@@ -12,10 +12,9 @@ export class RingChart extends Component {
     
     render() {
 
-        const { radius = 100, innerGap = 50, width = 800, height = 500} = this.props;
+        const { radius = 100, innerGap = 50, width = 750, height = 450} = this.props;
 
         var colors = ["blue", "black", "red", "yellow", "green"]
-
         var initialXUpper =  (width - ((3 * (radius * 2)) + (innerGap * 2))) / 2;
         var initialXLower =  (width - ((2 * (radius * 2)) + (innerGap * 1))) / 2; 
 
