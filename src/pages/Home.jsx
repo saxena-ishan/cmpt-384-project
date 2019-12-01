@@ -90,6 +90,8 @@ const rightContainer = {
     float: 'right',
     height: '100%'
 }
+
+
 function mapStateToProps(state) {
     return {
         years: state.delta.years,
