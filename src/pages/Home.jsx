@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
 import { StatsContainer } from "../components"
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setMedalTally, setTopGames, updateYears } from '../redux/actions/actions'
 import { json } from 'd3';
 
-import ReactDOM from 'react-dom';
 import OlympicTimeline from '../components/OlympicTimeline';
+import MedalTally  from '../../build/assets/data/MedalTally.json'
 
 class Home extends Component {
 
@@ -15,10 +14,9 @@ class Home extends Component {
         super(props)
 
         this.state = {
-
+            dateArray: []
         }
     }
-
 
     componentDidMount() {
         const { actions } = this.props;
@@ -26,15 +24,30 @@ class Home extends Component {
         json("/assets/data/MedalTally.json").then((response) => {
             actions.setMedalTally(response);
             actions.updateYears("1900", false);
+
+            this.initiateTimeDates(response)
         });
 
         json("/assets/data/TopGames.json").then((response) => {
             actions.setTopGames(response);
         });
+
     };
 
+    initiateTimeDates(dataJson){
+        // console.log(dataJson)
+        let tempArray = []
+
+        Object.keys(dataJson).forEach(function(key) {
+            tempArray.push(parseInt(key))
+        })
+
+        this.setState({dateArray: tempArray})
+        console.log(this.state.dateArray)
+    }
+
     createEvent = () => {
-        let array = [1980, 1990, 2000, 2010]
+        let array = this.state.dateArray
         let eventList = []
 
         array.forEach(element => {
@@ -45,6 +58,7 @@ class Home extends Component {
     }
 
     render() {
+
         return (
 
             <div style={divStyle}>
