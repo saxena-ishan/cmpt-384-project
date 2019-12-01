@@ -6,7 +6,6 @@ import { setMedalTally, setTopGames, updateYears } from '../redux/actions/action
 import { json } from 'd3';
 
 import OlympicTimeline from '../components/OlympicTimeline';
-import MedalTally  from '../../build/assets/data/MedalTally.json'
 
 class Home extends Component {
 
@@ -78,8 +77,6 @@ class Home extends Component {
                     <StatsContainer />
 
                 </div>
-
-
             </div>
         )
 
@@ -88,8 +85,8 @@ class Home extends Component {
 
 
 
-document.getElementsByTagName("BODY")[0].onresize = function() {myFunction()};
-var x = $(window).width() -60;
+var windowWidth = $(window).width() -60;
+var windowHeight = $(window).height() -250;
 
 const titleStyle={
     position: 'relative',
@@ -98,7 +95,7 @@ const titleStyle={
 const imageStyle={
     position: 'relative',
     display: 'grid',
-    left: x - (x/2) - 235 -15
+    left: windowWidth - (windowWidth/2) - 235 -15
 }
 
 const divStyle = {
@@ -111,20 +108,22 @@ var leftContainer = {
     border: '1px solid black',
     outlineStyle: 'solid',
     outlineColor: 'green',
-    width: '80px',
+    width: '100px',
     float: 'left',
-    height: '100%'
+    height: windowHeight,
+    overflowY: 'scroll'
 }
 var rightContainer = {
     border: '1px solid black',
     outlineStyle: 'solid',
     outlineColor: 'green',
-    width: x - 80,
+    width: windowWidth - 80,
     float: 'right',
     height: '100%'
 }
 
 // // Trying to get the div width to update when window is resized
+// document.getElementsByTagName("BODY")[0].onresize = function() {myFunction()};
 // function myFunction() {
 //   x = $(window).width() -60;
 //   rightContainer = {
@@ -151,8 +150,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);;
-
-
-
-
-
