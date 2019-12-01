@@ -31,7 +31,7 @@ export function updateYears(year, remove) {
 };
 
 const setYears = (years) => {
-    return { type: types.SET_SINGLE_MAX, years };
+    return { type: types.UPDATE_YEARS, years };
 }
 
 export const setSingleMax = (max) => {
