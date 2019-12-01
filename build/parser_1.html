@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="parser to parse medal tally for males and females by continent">
+    <title>Parser 1</title>
+</head>
+<style></style>
+
+<body>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        var olympicData = new Object();
+        var countryToContinentStruct = new Object();
+
+        d3.csv("./assets/data/countries.csv").then((response) => {
+            response.forEach((element) => {
+                if (!countryToContinentStruct[element.Three_Letter_Country_Code]) {
+                    countryToContinentStruct[element.Three_Letter_Country_Code] = element.Continent_Code;
+                }
+            });
+
+            function country_to_continent(country) {
+                if (countryToContinentStruct[country]) {
+                    return countryToContinentStruct[country]
+                } else {
+                    return false
+                }
+            }
+            
+            const continents = ["", "AF", "AM", "AS", "EU", "OC"];
+
+            d3.csv("./assets/data/medalists.csv").then((athleteResponse) => {
+                athleteResponse.forEach((r) => {
+                    let athleteContinent = country_to_continent(r["NOC"]);
+                    let B, S, G; B = S = G = 0;
+                    
+                    // if the editon does not exist, initialize it and the continent
+                    if (!olympicData[r["Edition"]]) {
+
+                        olympicData[r["Edition"]] = {
+                            males: 0,
+                            females: 0,
+                            total: { B, S, G },
+                            continents: {},
+                        }
+                        
+                        continents.forEach((continent) => {
+                            olympicData[r["Edition"]]["continents"][continent] = {
+                                males: { B, S, G },
+                                females: { B, S, G },
+                                total: { B, S, G },
+                            };    
+                        });
+                    }
+
+                    // update the tally
+                    if (r["Gender"] === "Men") {
+                        olympicData[r["Edition"]]["males"] += 1;
+                        olympicData[r["Edition"]]["continents"][athleteContinent]["males"][r["Medal"].charAt(0)] += 1;
+                    } 
+                    else {
+                        olympicData[r["Edition"]]["females"] += 1;
+                        olympicData[r["Edition"]]["continents"][athleteContinent]["females"][r["Medal"].charAt(0)] += 1;
+                    }
+
+                    olympicData[r["Edition"]]["continents"][athleteContinent]["total"][r["Medal"].charAt(0)] += 1;
+                    olympicData[r["Edition"]]["total"][r["Medal"].charAt(0)] += 1;
+    
+                });
+
+                // update the max and the totalMedalMax attribute of every edition
+                Object.keys(olympicData).forEach((edition) => {
+                    let max = Number.NEGATIVE_INFINITY;
+                    let totalMedalMax = Number.NEGATIVE_INFINITY;
+                    Object.keys(olympicData[edition]["continents"]).forEach((c) => {
+                        let continentRef = olympicData[edition]["continents"][c];
+                        let total = 0;
+                        
+                        ["B", "S", "G"].forEach((medal) => {
+                            if (max < continentRef["males"][medal]) {
+                                max = continentRef["males"][medal]
+                            };
+
+                            if (max < continentRef["females"][medal]) {
+                                max = continentRef["females"][medal]
+                            };
+
+                            total += continentRef["total"][medal]
+                        });
+                        
+                        if (total > totalMedalMax) {
+                            totalMedalMax = total;
+                        }
+                    });
+
+                    olympicData[edition]["max"] = max;
+                    olympicData[edition]["totalMedalMax"] = totalMedalMax;
+                });
+
+                console.log("Olympic Data:")
+                console.log(olympicData)
+
+                // Uncomment below to get JSON file
+                // console.log(JSON.stringify(olympicData, 0, 4));
+            });
+        });
+    </script>
+
+</body>
+
+</html>
