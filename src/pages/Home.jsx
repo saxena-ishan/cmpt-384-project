@@ -10,11 +10,7 @@ import OlympicTimeline from '../components/OlympicTimeline';
 class Home extends Component {
 
     constructor(props) {
-        super(props)
-
-        this.state = {
-            dateArray: []
-        }
+        super(props);
     }
 
     componentDidMount() {
@@ -22,34 +18,20 @@ class Home extends Component {
 
         json("/assets/data/MedalTally.json").then((response) => {
             actions.setMedalTally(response);
-            actions.updateYears("1900", false);
-
-            this.initiateTimeDates(response)
         });
 
         json("/assets/data/TopGames.json").then((response) => {
             actions.setTopGames(response);
         });
-
     };
 
-    initiateTimeDates(dataJson){
-        // console.log(dataJson)
-        let tempArray = []
-
-        Object.keys(dataJson).forEach(function(key) {
-            tempArray.push(parseInt(key))
-        })
-
-        this.setState({dateArray: tempArray})
-        console.log(this.state.dateArray)
-    }
-
     createEvent = () => {
-        let array = this.state.dateArray
-        let eventList = []
 
-        array.forEach(element => {
+        const { globalYears } = this.props;
+
+        var eventList = [];
+
+        globalYears.forEach(element => {
             eventList.push(<OlympicTimeline key={`${element}`} year={`${element}`} />)
         });
 
@@ -57,6 +39,8 @@ class Home extends Component {
     }
 
     render() {
+
+        const { years } = this.props;
 
         return (
 
@@ -74,8 +58,11 @@ class Home extends Component {
                 </div>
 
                 <div className="stats-div" style={rightContainer}>
-                    <StatsContainer />
-
+                    {
+                        years.map((y, i) => {
+                          return (<StatsContainer year={y} key={i}/>);
+                        })
+                    }
                 </div>
             </div>
         )
@@ -140,6 +127,7 @@ var rightContainer = {
 function mapStateToProps(state) {
     return {
         years: state.delta.years,
+        globalYears: state.delta.globalYears
     };
 }
 
