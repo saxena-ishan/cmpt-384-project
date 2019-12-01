@@ -25,6 +25,9 @@ body {
 
 // import base - contains global styles, such as resets, typography, colors
 // import components- contains each self-contained component in its own .scss partial
+@import './components/RingChart/ring';
+@import './components/RingChart/index';
+
 // import pages contains page-specific styling
 
 // example import statement '@import 'pages/home';'

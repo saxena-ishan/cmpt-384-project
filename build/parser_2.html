@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="parser to parse medal tally for males and females by continent">
+    <title>Parser 1</title>
+</head>
+<style></style>
+
+<body>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        var olympicData = new Object();
+        var countryToContinentStruct = new Object();
+
+        d3.csv("./assets/data/countries.csv").then((response) => {
+            response.forEach((element) => {
+                if (!countryToContinentStruct[element.Three_Letter_Country_Code]) {
+                    countryToContinentStruct[element.Three_Letter_Country_Code] = element.Continent_Code;
+                }
+            });
+
+            function country_to_continent(country) {
+                if (countryToContinentStruct[country] || countryToContinentStruct[country] === "") {
+                    return countryToContinentStruct[country]
+                } else {
+                    return false
+                }
+            }
+            
+            const continents = ["", "AF", "AM", "AS", "EU", "OC"];
+
+            d3.csv("./assets/data/medalists.csv").then((athleteResponse) => {
+                athleteResponse.forEach((r) => {
+                    let athleteContinent = country_to_continent(r["NOC"]);
+                    let B, S, G; B = S = G = 0;
+
+                    // if the editon does not exist, initialize it and the continent
+                    if (!olympicData[r["Edition"]]) {
+
+                        olympicData[r["Edition"]] = {
+                            continents: {},
+                        }
+                        
+                        continents.forEach((continent) => {
+                            olympicData[r["Edition"]]["continents"][continent] = { top: 0 };    
+                        });
+
+                        olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]] = {
+                            males: { B, S, G },
+                            females: { B, S, G },
+                            total: 0,
+                            name: r["Discipline"],
+                        };   
+                    }
+                    else if (!olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]]) {
+                        olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]] = {
+                            males: { B, S, G },
+                            females: { B, S, G },
+                            total: 0,
+                            name: r["Discipline"]
+                        };
+                    };   
+
+                    // update the tally
+                    if (r["Gender"] === "Men") {
+                        olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]]["males"][r["Medal"].charAt(0)] += 1;
+                    } 
+                    else {
+                        olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]]["females"][r["Medal"].charAt(0)] += 1;
+                    }
+
+                    olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]]["total"] += 1;
+    
+                });
+
+                // update the top games for every edition of every edition
+                Object.keys(olympicData).forEach((edition) => {
+                    let continentsRef = olympicData[edition]["continents"];
+                    Object.keys(continentsRef).forEach((c) => {
+                       if (c !== "") {
+                            let sportList = new Array();
+                            Object.keys(continentsRef[c]).forEach((s) => {
+                                if (continentsRef[c][s] !== 0) {
+                                    sportList.push(continentsRef[c][s]);
+                                };   
+                            });
+
+                            sportList.sort(function(a, b) { 
+                                return a.total - b.total;
+                            });
+                            
+                            if (sportList.length > 10) {
+                                sportList.slice(0, sportList.length - 10).forEach((o) => {
+                                    delete continentsRef[c][o.name];                         
+                                });
+                            }
+                            
+                            else if ((sportList.length < 10) && (sportList.length > 5)) {
+                                sportList.slice(0, sportList.length - 5).forEach((o) => {
+                                    delete continentsRef[c][o.name];                         
+                                });
+                            };
+
+                            continentsRef[c]["top"] = Object.keys(continentsRef[c]).length - 1;
+                        }
+                        else {
+                            delete continentsRef[c]
+                        }         
+  
+                    });
+                });
+                
+                // clean up the object and update the max for top games
+                Object.keys(olympicData).forEach((edition) => {
+                    let continentsRef = olympicData[edition]["continents"];
+                    Object.keys(continentsRef).forEach((c) => {
+                        Object.keys(continentsRef[c]).forEach((s) => {
+                            if (s !== "top") {
+                                let max = Number.NEGATIVE_INFINITY;
+                                ["B", "S", "G"].forEach((medal) => {
+                                    if (max < continentsRef[c][s]["males"][medal]) {
+                                        max = continentsRef[c][s]["males"][medal]
+                                    };
+                                    
+                                    if (max < continentsRef[c][s]["females"][medal]) {
+                                        max = continentsRef[c][s]["females"][medal]
+                                    };
+                                });
+
+                                continentsRef[c][s]["max"] = max;
+
+                                delete continentsRef[c][s]["name"];
+                                delete continentsRef[c][s]["continent"];
+                            };
+                        });
+                    });
+                });
+                    
+                console.log("Olympic Data:")
+                // console.log(olympicData)
+
+                // Uncomment below to get JSON file
+                console.log(JSON.stringify(olympicData, 0, 4));
+            });
+        });
+    </script>
+
+</body>
+
+</html>

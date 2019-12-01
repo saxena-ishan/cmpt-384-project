@@ -1,0 +1,51 @@
+.ring-root {
+
+    circle {
+        fill: none;
+        stroke-width: 15px;
+    }
+
+    
+
+    .ring-axis-elements {
+        line {
+            stroke: grey;
+            stroke-width: .5px;
+        }
+
+        text {
+            font-size: 12px;
+        }
+    }
+    
+    .ring-bars {
+
+        #bar-text-visible {
+            visibility: visible;
+            opacity: 1;
+            transition: visibility 0s linear 0s, opacity 300ms;
+        }
+
+        #bar-text-hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 300ms, opacity 300ms;
+        }
+
+        .gold-bar {
+            fill: gold;
+        }
+
+        .silver-bar {
+            fill: silver;
+        }
+
+        .bronze-bar {
+            fill: brown;            
+        }
+
+        text {
+            font-size: 12px;
+        }
+    }
+}
