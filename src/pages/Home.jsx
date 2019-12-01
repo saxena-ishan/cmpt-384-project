@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StatsContainer } from "../components"
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setMedalTally, setTopGames } from '../redux/actions/actions'
+import { setMedalTally, setTopGames, updateYears } from '../redux/actions/actions'
 import { json } from 'd3';
 
 class Home extends Component {
@@ -20,6 +20,7 @@ class Home extends Component {
 
         json("/assets/data/MedalTally.json").then((response) => {
             actions.setMedalTally(response);
+            actions.updateYears("1900", false);
         });
 
         json("/assets/data/TopGames.json").then((response) => {
@@ -43,7 +44,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ setMedalTally, setTopGames }, dispatch)
+        actions: bindActionCreators({ setMedalTally, setTopGames, updateYears }, dispatch)
     };
 }
 
