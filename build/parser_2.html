@@ -53,6 +53,7 @@
                             males: { B, S, G },
                             females: { B, S, G },
                             total: 0,
+                            name: r["Discipline"],
                         };   
                     }
                     else if (!olympicData[r["Edition"]]["continents"][athleteContinent][r["Discipline"]]) {
@@ -60,8 +61,7 @@
                             males: { B, S, G },
                             females: { B, S, G },
                             total: 0,
-                            name: r["Discipline"],
-                            continent: athleteContinent
+                            name: r["Discipline"]
                         };
                     };   
 
@@ -85,12 +85,10 @@
                             let sportList = new Array();
                             Object.keys(continentsRef[c]).forEach((s) => {
                                 if (continentsRef[c][s] !== 0) {
-                                    if (!Object.keys(continentsRef[c][s]).includes("name")) {
-                                        continentsRef[c][s]["name"] = s;
-                                    }
                                     sportList.push(continentsRef[c][s]);
                                 };   
                             });
+
                             sportList.sort(function(a, b) { 
                                 return a.total - b.total;
                             });
@@ -143,10 +141,10 @@
                 });
                     
                 console.log("Olympic Data:")
-                console.log(olympicData)
+                // console.log(olympicData)
 
                 // Uncomment below to get JSON file
-                // console.log(JSON.stringify(olympicData, 0, 4));
+                console.log(JSON.stringify(olympicData, 0, 4));
             });
         });
     </script>
