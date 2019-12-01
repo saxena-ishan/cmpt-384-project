@@ -14,17 +14,17 @@ export default class OlympicTimeline extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: true
+            isSelected: true
         }
     }
 
-    CustomOpenMarker = () => <span style={dotStyle} onClick={(() => this.testButton())}>⚫</span>;
-    CustomCloseMarker = () => <span style={dotStyle} onClick={(() => this.testButton())}>✖</span>;
+    CustomOpenMarker = (y) => <span style={dotStyle} onClick={(() => this.testButton(y))}>⚫</span>;
+    CustomCloseMarker = (y) => <span style={dotStyle} onClick={(() => this.testButton(y))}>✖</span>;
 
-    testButton() {
-        this.setState({ isOpen: !this.state.isOpen })
+    testButton(year) {
+        this.setState({ isSelected: !this.state.isSelected })
+        console.log("Is selected = " + this.state.isSelected + " : " + year)
     }
-
 
     render() {
         const { year } = this.props;
@@ -34,10 +34,10 @@ export default class OlympicTimeline extends Component {
                 <Timeline>
                     <Events>
                         {
-                            this.state.isOpen ?
-                                <TextEvent date={year} text="" marker={() => this.CustomOpenMarker()}></TextEvent>
+                            this.state.isSelected ?
+                                <TextEvent date={year} text="" marker={() => this.CustomOpenMarker(year)}></TextEvent>
                                 :
-                                <TextEvent date={year} text="" marker={() => this.CustomCloseMarker()}></TextEvent>
+                                <TextEvent date={year} text="" marker={() => this.CustomCloseMarker(year)}></TextEvent>
                         }
 
                     </Events>
