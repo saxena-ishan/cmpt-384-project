@@ -1,25 +1,44 @@
 import React, { Component } from 'react';
 import { updateRing } from "../../utils/updateRing";
+import { connect } from 'react-redux';
 
-export default class Ring extends Component {
+class Ring extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-            barTextHidden: true
+            barTextHidden: false
         }
     }
+    
     componentDidUpdate() {
+        const { continent, year, data, singleMax } = this.props;
+        updateRing(
+            continent[1],
+            year,
+            data,
+            singleMax, 
+            15, 
+            100,
+            () => { this.setState({barTextHidden: true}); },
+            () => { this.setState({barTextHidden: false}); }
+        );
     }
 
     componentDidMount() {
 
-        const { continent, year } = this.props;
+        const { continent, year, data, singleMax } = this.props;
 
-        const start = () => { this.setState({barTextHidden: true}); }
-        const end = () => { this.setState({barTextHidden: false}); }
-
-        updateRing(continent[1], year, 15, 100, start, end);
+        updateRing(
+            continent[1],
+            year,
+            data,
+            singleMax, 
+            15, 
+            100,
+            () => { this.setState({barTextHidden: true}); },
+            () => { this.setState({barTextHidden: false}); }
+        );
     }
     
     
@@ -36,9 +55,8 @@ export default class Ring extends Component {
                  r={radius}
                  stroke={color}
                  strokeWidth={strokeWidth}
-                 title={continent[0]}
                 >
-                    <title>{continent}</title>
+                    <title>{continent[0]}</title>
                 </circle>
 
                 <g className="ring-axis-elements">
@@ -100,6 +118,13 @@ export default class Ring extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        singleMax: state.delta.singleMax
+    };
+}
 
+
+export default connect(mapStateToProps, null)(Ring);
 
 
