@@ -1,0 +1,72 @@
+import CustomThemeDemo from './CustomThemeDemo'
+import DemoTimeline from '../DemoTimeline'
+
+<Meta title="Timeline/Theming/Intro" />
+
+# Theming
+
+You can control the look and feel of almost every component in `React Timeline` via theming. 
+
+## Via the Theme Object
+`Timeline` accepts a `theme` prop, which is an object that defines the styles of the timeline and everything within it. Components have default styles that can be overwritten by this object. 
+
+React Timeline includes a few themes that can be imported from the `themes` object. You can pass these  objects to `Timeline` (the `default` theme is used by default) or you can extend them to create custom themes.
+
+Check out the example below in which we customize some of the elements.
+
+```jsx
+import React from 'react';
+import { Timeline, Events, TextEvent, themes, createTheme } from '@merc/react-timeline';
+
+/**
+  * `createTheme` is a helper function that takes two arguments:
+  * - a base theme to extend from
+  * - the new theme properties
+  * It uses deep copying behind the scenes to create a new theme object with
+  * all of the required properties.
+  */
+const customTheme = createTheme(themes.default, {
+  card: {
+    backgroundColor: '#efefef',
+  },
+  date: {
+    backgroundColor: 'rebeccapurple',
+  },
+  marker: {
+    borderColor: 'rebeccapurple',
+  },
+  timelineTrack: {
+    backgroundColor: 'rebeccapurple',
+  },
+});
+
+export default function() {
+  return (
+    <Timeline theme={customTheme}>
+      <Events>
+        <TextEvent date="10/01/19" text="The lines are now purple..." />
+        <TextEvent
+          date="10/02/19"
+          text="... and the cards have a grey background!"
+        />
+      </Events>
+    </Timeline>
+  );
+}
+```
+
+<CustomThemeDemo />
+
+## Included Themes
+
+You can preview the included themes below:
+
+<DemoTimeline showThemeCP={true} />
+
+
+
+## Via Regular CSS
+Even though this library uses [Styled Components](https://www.styled-components.com/), each component also uses a semantic class name that you can use when writing stylesheets.
+
+## Which Method Should I Use?
+I think using a `theme` object is easier, but it only gets you 90% of the way there. Using a custom stylesheet gives you full control over everything, but may not be as intuitive. Luckily, the two options aren't mutually exclusive; you can use a `theme` object for the majority of your styling, and then use a stylesheet to cover any edge cases.

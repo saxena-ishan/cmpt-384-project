@@ -6,7 +6,7 @@ import {
     ImageEvent,
     TextEvent,
     YouTubeEvent,
-} from '@merc/react-timeline';
+} from '../timeline';
 
 
 export default class OlympicTimeline extends Component {
@@ -18,7 +18,8 @@ export default class OlympicTimeline extends Component {
         }
     }
 
-    MyCustomMarker = () => <span onClick={(() => this.testButton())}>😀</span>;
+    CustomOpenMarker = () => <span style={dotStyle} onClick={(() => this.testButton())}>⚫</span>;
+    CustomCloseMarker = () => <span style={dotStyle} onClick={(() => this.testButton())}>✖</span>;
 
     testButton() {
         this.setState({ isOpen: !this.state.isOpen })
@@ -28,24 +29,35 @@ export default class OlympicTimeline extends Component {
     render() {
         const { year } = this.props;
         return (
-            <div>
+            <div style={timelineDivStyle}>
 
                 <Timeline>
                     <Events>
-
                         {
                             this.state.isOpen ?
-                                <TextEvent date={year} text="**Markdown** is *supported*" marker={() => this.MyCustomMarker()}></TextEvent>
+                                <TextEvent date={year} text="" marker={() => this.CustomOpenMarker()}></TextEvent>
                                 :
-                                <TextEvent date={year} text="" marker={() => this.MyCustomMarker()}></TextEvent>
-
+                                <TextEvent date={year} text="" marker={() => this.CustomCloseMarker()}></TextEvent>
                         }
 
                     </Events>
-                </Timeline> : <div></div>
+                </Timeline>
 
             </div>
 
+
         );
     }
+}
+const dotStyle = {
+    position: 'absolute',
+    left: '45px'
+}
+const timelineDivStyle = {
+    border: '1px solid black',
+    outlineStyle: 'solid',
+    outlineColor: 'blue',
+    width: '80px',
+    float: 'left',
+    height: '100%'
 }

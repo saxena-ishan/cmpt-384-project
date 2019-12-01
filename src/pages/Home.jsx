@@ -9,7 +9,7 @@ export default class Home extends Component {
     }
 
     createEvent = () => {
-        let array = [2000, 2010]
+        let array = [1980, 1990, 2000, 2010]
         let eventList = []
 
         array.forEach(element => {
@@ -23,21 +23,43 @@ export default class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div style={divStyle}>
                 <div className="boilerplate-div">react-boilerplate</div>
-                <div className="olympicTimeline">
-                    {this.createEvent()}
+
+                <div style={leftContainer}>
+                    <div className="olympicTimeline">
+                        {this.createEvent()}
+                    </div>
                 </div>
+
+                <div style={rightContainer}></div>
+
+
             </div>
         )
     }
 }
 
 
-
-// const OlympicTimelineStyle = {
-//     width: '50%',
-//     border: '3px solid green',
-//     padding: '10px',
-//     right: '250px'
-// }
+const divStyle = {
+    border: '1px solid black',
+    outlineStyle: 'solid',
+    outlineColor: 'red',
+    height: '100px'
+}
+const leftContainer = {
+    border: '1px solid black',
+    outlineStyle: 'solid',
+    outlineColor: 'green',
+    width: '80px',
+    float: 'left',
+    height: '100%'
+}
+const rightContainer = {
+    border: '1px solid black',
+    outlineStyle: 'solid',
+    outlineColor: 'green',
+    width: '85%',
+    float: 'right',
+    height: '100%'
+}
