@@ -14,16 +14,18 @@ export default class Ring extends Component {
 
     componentDidMount() {
 
+        const { continent, year } = this.props;
+
         const start = () => { this.setState({barTextHidden: true}); }
         const end = () => { this.setState({barTextHidden: false}); }
 
-        updateRing(this.props.continent, 15, 100, start, end);
+        updateRing(continent[1], year, 15, 100, start, end);
     }
     
     
     render() {
 
-        const { radius = 100, strokeWidth = 15, color = "red", x = 10, y = 20, continent = "L" } = this.props;
+        const { radius = 100, strokeWidth = 15, color = "red", x = 10, y = 20, continent = "L", year } = this.props;
         const { barTextHidden } = this.state;
         return (
             <g className="ring-root" transform={`translate(${x},${y})`}>
@@ -34,7 +36,7 @@ export default class Ring extends Component {
                  r={radius}
                  stroke={color}
                  strokeWidth={strokeWidth}
-                 title={continent}
+                 title={continent[0]}
                 >
                     <title>{continent}</title>
                 </circle>
@@ -62,36 +64,36 @@ export default class Ring extends Component {
                 
                 <g className="ring-bars">
                     {/* Male Results */}
-                    <path className={`gold-bar ${continent} male`}>
+                    <path className={`gold-bar ${continent[1]}-${year} male`}>
                         <title></title>
                     </path>
                     <text 
-                     className={`gold-bar-text ${continent} male`} 
+                     className={`gold-bar-text ${continent[1]}-${year} male`} 
                      id={`bar-text-${(barTextHidden? "hidden" : "visible")}`}
                      textAnchor="middle"
                     />
-                    <path className={`silver-bar ${continent} male`}>
+                    <path className={`silver-bar ${continent[1]}-${year} male`}>
                         <title></title>
                     </path>
-                    <text className={`silver-bar-text ${continent} male`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
-                    <path className={`bronze-bar ${continent} male`}>
+                    <text className={`silver-bar-text ${continent[1]}-${year} male`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
+                    <path className={`bronze-bar ${continent[1]}-${year} male`}>
                         <title></title>
                     </path>
-                    <text className={`bronze-bar-text ${continent} male`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
+                    <text className={`bronze-bar-text ${continent[1]}-${year} male`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
 
                     {/* Female Results */}
-                    <path className={`gold-bar ${continent} female`}>
+                    <path className={`gold-bar ${continent[1]}-${year} female`}>
                         <title></title>
                     </path>
-                    <text className={`gold-bar-text ${continent} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
-                    <path className={`silver-bar ${continent} female`}>
+                    <text className={`gold-bar-text ${continent[1]}-${year} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
+                    <path className={`silver-bar ${continent[1]}-${year} female`}>
                         <title></title>
                     </path>
-                    <text className={`silver-bar-text ${continent} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
-                    <path className={`bronze-bar ${continent} female`}>
+                    <text className={`silver-bar-text ${continent[1]}-${year} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
+                    <path className={`bronze-bar ${continent[1]}-${year} female`}>
                         <title></title>
                     </path>
-                    <text className={`bronze-bar-text ${continent} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
+                    <text className={`bronze-bar-text ${continent[1]}-${year} female`} id={`bar-text-${(barTextHidden? "hidden" : "visible")}`} textAnchor="middle"/>
                 </g>
             </g>
         )
