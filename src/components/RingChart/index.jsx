@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Ring from "./Ring"
+import { connect } from 'react-redux';
+
 
 export class RingChart extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ export class RingChart extends Component {
     
     render() {
 
-        const { radius = 100, innerGap = 50, width = 750, height = 450, year = 1900} = this.props;
+        const { radius = 100, innerGap = 50, width = 750, height = 450, year = 1900, data} = this.props;
 
         var continents = {
             "blue": ["Europe", "EU"], 
@@ -40,6 +42,7 @@ export class RingChart extends Component {
                                  key={i}
                                  continent={continents[c]}
                                  year={year}
+                                 data={data["continents"][continents[c][1]]}
                                 />
                             )
                         }
@@ -54,6 +57,7 @@ export class RingChart extends Component {
                                  key={i}
                                  continent={continents[c]}
                                  year={year}
+                                 data={data["continents"][continents[c][1]]}
                                 />
                             )
                         }
