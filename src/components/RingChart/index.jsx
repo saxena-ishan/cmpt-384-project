@@ -12,17 +12,23 @@ export class RingChart extends Component {
     
     render() {
 
-        const { radius = 100, innerGap = 50, width = 750, height = 450} = this.props;
+        const { radius = 100, innerGap = 50, width = 750, height = 450, year = 1900} = this.props;
 
-        var colors = ["blue", "black", "red", "yellow", "green"]
+        var continents = {
+            "blue": ["Europe", "EU"], 
+            "black": ["Africa", "AF"], 
+            "red": ["Americas", "AM"], 
+            "yellow": ["Asia", "AS"], 
+            "green": ["Oceania", "OC"] 
+        };
+
         var initialXUpper =  (width - ((3 * (radius * 2)) + (innerGap * 2))) / 2;
         var initialXLower =  (width - ((2 * (radius * 2)) + (innerGap * 1))) / 2; 
-
         var initialY =  (height - (2 * (radius * 2))) / 2;
         return (
             <svg className="ring-container" width={width} height={height}>
                 {
-                    colors.map((c, i) => {
+                    Object.keys(continents).map((c, i) => {
                         if (i < 3) {
                             let x = initialXUpper + (i * ((radius * 2) + innerGap));
                             return (
@@ -32,7 +38,8 @@ export class RingChart extends Component {
                                  x={x}
                                  y={initialY}
                                  key={i}
-                                 continent={c}
+                                 continent={continents[c]}
+                                 year={year}
                                 />
                             )
                         }
@@ -45,7 +52,8 @@ export class RingChart extends Component {
                                  x={x}
                                  y={initialY + (radius * 2)}
                                  key={i}
-                                 continent={c}
+                                 continent={continents[c]}
+                                 year={year}
                                 />
                             )
                         }
