@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Ring from "../RingChart/Ring"
+import StackedBar from "./StackedBar"
 
 export class TopGames extends Component {
     constructor(props) {
@@ -12,16 +12,17 @@ export class TopGames extends Component {
     
     render() {
 
-        const { radius = 100, innerGap = 50, width = 750, height = 450} = this.props;
+        const { radius = 100, innerGap = 50, width = 510, height = 450} = this.props;
 
-        var colors = ["blue", "black", "red", "yellow", "green"]
-        var initialXUpper =  (width - ((3 * (radius * 2)) + (innerGap * 2))) / 2;
-        var initialXLower =  (width - ((2 * (radius * 2)) + (innerGap * 1))) / 2; 
+        // var colors = ["blue", "black", "red", "yellow", "green"]
+        // var initialXUpper =  (width - ((3 * (radius * 2)) + (innerGap * 2))) / 2;
+        // var initialXLower =  (width - ((2 * (radius * 2)) + (innerGap * 1))) / 2; 
 
-        var initialY =  (height - (2 * (radius * 2))) / 2;
+        // var initialY =  (height - (2 * (radius * 2))) / 2;
         return (
             <svg className="ring-container" width={width} height={height}>
-                {
+                <StackedBar width={width}/>
+                {/* {
                     colors.map((c, i) => {
                         if (i < 3) {
                             let x = initialXUpper + (i * ((radius * 2) + innerGap));
@@ -50,8 +51,7 @@ export class TopGames extends Component {
                             )
                         }
                     })
-                }
-                
+                } */}
             </svg>
         )
     }
