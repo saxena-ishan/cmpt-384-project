@@ -8,7 +8,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import OlympicTimeline from '../components/OlympicTimeline';
 
-  
+let backgroundStyle = { background: 'url(assets/img/olympicRings.png)', backgroundSize: '100%', backgroundRepeat: "no-repeat" };  
 
 class Home extends Component {
 
@@ -49,33 +49,34 @@ class Home extends Component {
 
         return (
 
-            <div style={divStyle}>
+            <div className="page-root">
 
                 <div className="page-title">
-                    <img src="assets/olympicRings.png"  style={imageStyle} alt="Olympic Rings" width="470" height="240"></img>
+                    <div className="page-title-logo" style={backgroundStyle}></div>
+                    <div className="page-title-text">{`Olympic Data Visualization`}</div>
                 </div>
-                <div className="scrollStyle">
-                <CustomScrollbars autoHide autoHideTimeout={500} autoHideDuration={200}>
-                <div className="timeline-div" style={leftContainer}>
-                    <div className="olympicTimeline">
-                        {this.createEvent()}
+                <div className="page-main">
+                    <div className="scrollStyle">
+                        <CustomScrollbars autoHide autoHideTimeout={500} autoHideDuration={200}>
+                            <div className="timeline-div" style={leftContainer}>
+                            <div className="olympicTimeline">
+                                {this.createEvent()}
+                            </div>
+                        </div>
+                        </CustomScrollbars>
                     </div>
+
+                    {<div className="stats-div" style={rightContainer}>
+                        {years.length === 0 && <div style={divStyle}></div>}
+                        { 
+                            years.map((y, i) => {
+                                return (<StatsContainer year={y} key={i} data={medalTally[y]}/>);
+                            })
+                        }
+                    </div>}
                 </div>
-                </CustomScrollbars>
-
-                </div>
-
-
-                {<div className="stats-div" style={rightContainer}>
-                    {
-                        years.map((y, i) => {
-                          return (<StatsContainer year={y} key={i} data={medalTally[y]}/>);
-                        })
-                    }
-                </div>}
             </div>
         )
-
     }
 }
 
@@ -106,26 +107,29 @@ const imageStyle={
 }
 
 const divStyle = {
-    border: '1px solid black',
-    outlineStyle: 'solid',
-    outlineColor: 'red',
-    height: 'auto'
+
+    width: "868px",
+    height: "458px"
+    // border: '1px solid black',
+    // outlineStyle: 'solid',
+    // outlineColor: 'red',
+    // height: 'auto'
 }
 var leftContainer = {
     border: '1px solid black',
     outlineStyle: 'solid',
-    outlineColor: 'green',
+    // outlineColor: 'green',
     width: '100px',
-    float: 'left',
+    // float: 'left',
     height: windowHeight,
     // overflowY: 'scroll'
 }
 var rightContainer = {
-    border: '1px solid black',
-    outlineStyle: 'solid',
-    outlineColor: 'green',
-    width: windowWidth - 80,
-    float: 'right',
+    // border: '1px solid black',
+    // outlineStyle: 'solid',
+    // outlineColor: 'green',
+    // width: windowWidth - 100,
+    // float: 'right',
     height: '100%'
 }
 

@@ -9,12 +9,13 @@
 
     .ring-axis-elements {
         line {
-            stroke: grey;
+            stroke: white;
             stroke-width: .5px;
         }
 
         text {
             font-size: 12px;
+            fill: white;
         }
     }
     
@@ -46,6 +47,7 @@
 
         text {
             font-size: 12px;
+            fill: white;
         }
     }
 }

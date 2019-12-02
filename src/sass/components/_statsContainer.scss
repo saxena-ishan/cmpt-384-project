@@ -1,24 +1,25 @@
 .stats-container-root {
+
+    border: 2px solid brown;
+    border-radius: 15px;
+    width: max-content;
+    margin: 0px 0px 0px 0px;
+
     &>div {
         display: inline-block;
     }
     .edition-tag-container {
-        border: 2px solid red;
-        text-align: center;
+
+        width: auto;
+        float: left;
+        transform: translate(0px, 200px) rotate(-90deg);
         text-decoration: none;
         font-size: 50px;
-        color: #5d6068d6;
+        color: white;
         text-transform: uppercase;
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
 
         &:hover {
-          color: Black;
-        cursor: pointer;
-        }
-        .edition-tag {
-
+            cursor: pointer;
         }
     }
 }

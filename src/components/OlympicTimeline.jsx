@@ -33,7 +33,7 @@ class OlympicTimeline extends Component {
         this.setState({isSelected: !this.state.isSelected})
 
         this.props.actions.updateYears(''+this.state.curYear, this.state.isSelected);
-        console.log("Is selected = " + this.state.isSelected + " : " + this.state.curYear)
+        // console.log("Is selected = " + this.state.isSelected + " : " + this.state.curYear)
     }
 
     CustomOpenMarker = () => <span style={dotStyle} >⚫</span>;
@@ -81,7 +81,9 @@ const buttonStyle = {
 }
 const dotStyle = {
     position: 'absolute',
-    left: '45px'
+    left: '45px',
+    cursor: "pointer",
+    userSelect: "none"
 }
 const timelineDivStyle = {
     // border: '1px solid black',

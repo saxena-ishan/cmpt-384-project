@@ -30,7 +30,7 @@ body {
     height: 70vh;
     border: 1px solid #ccc;
     border-radius: 4px;
-    float:left;
+    // float:left;
     /* background-color: #19233c; */
     /* color: #fff; */
   }
@@ -41,6 +41,8 @@ body {
 @import './components/RingChart/ring';
 @import './components/RingChart/index';
 @import './components/statsContainer';
+@import './pages/home';
+
 
 // import pages contains page-specific styling
 

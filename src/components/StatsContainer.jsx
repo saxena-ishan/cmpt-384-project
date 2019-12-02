@@ -12,24 +12,20 @@ export default class StatsContainer extends Component {
         const { year, data } = this.props;
         return (
             <div className="stats-container-root">
-                <div style={containerHeading} className="boilerplate-div">{year}</div>
+                <div style={containerHeading} className="edition-tag-container">{year}</div>
                 
                 <div>
                     <RingChart year={year} data={data}/>
                 </div>
-                {/* <div>
-                    <TopGames />
-                </div> */}
-
             </div>
         )
     }
 }
 
 const containerHeading = {
-    border: '1px solid black',
-    outlineStyle: 'solid',
-    outlineColor: 'blue',
+    // border: '1px solid black',
+    // outlineStyle: 'solid',
+    // outlineColor: 'blue',
     width: 'auto',
     float: 'left',
     transform: 'translate(0px, 200px) rotate(-90deg)',
