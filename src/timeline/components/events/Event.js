@@ -43,6 +43,9 @@ const DateColumn = styled.div({
   flexBasis: '50%',
   alignItems: 'flex-end',
   zIndex: 300,
+  border: '4px solid black',
+  borderColor: '#893011',
+  borderRadius: '5px',
 
   [`&.${LAYOUTS.ALTERNATE_EVENTS}`]: {
     [`${Container}:nth-child(even) &`]: {
