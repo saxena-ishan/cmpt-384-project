@@ -55,10 +55,11 @@ class Home extends Component {
                     <div className="page-title-logo" style={backgroundStyle}></div>
                     <div className="page-title-text">{`Olympic Data Visualization`}</div>
                 </div>
+
                 <div className="page-main">
                     <div className="scrollStyle">
                         <CustomScrollbars autoHide autoHideTimeout={500} autoHideDuration={200}>
-                            <div className="timeline-div" style={leftContainer}>
+                            <div className="timeline-div left-container" >
                             <div className="olympicTimeline">
                                 {this.createEvent()}
                             </div>
@@ -66,8 +67,8 @@ class Home extends Component {
                         </CustomScrollbars>
                     </div>
 
-                    {<div className="stats-div" style={rightContainer}>
-                        {years.length === 0 && <div style={divStyle}></div>}
+                    {<div className="stats-div right-container">
+                        {years.length === 0 && <div className="child"></div>}
                         { 
                             years.map((y, i) => {
                                 return (<StatsContainer year={y} key={i} data={medalTally[y]}/>);
@@ -96,57 +97,6 @@ const renderThumb = ({ style, ...props }) => {
       {...props}
     />
   );
-
-var windowWidth = $(window).width() -60;
-var windowHeight = $(window).height() -250;
-
-const imageStyle={
-    position: 'relative',
-    display: 'grid',
-    left: windowWidth - (windowWidth/2) - 235 -20
-}
-
-const divStyle = {
-
-    width: "868px",
-    height: "458px"
-    // border: '1px solid black',
-    // outlineStyle: 'solid',
-    // outlineColor: 'red',
-    // height: 'auto'
-}
-var leftContainer = {
-    border: '1px solid black',
-    outlineStyle: 'solid',
-    // outlineColor: 'green',
-    width: '100px',
-    // float: 'left',
-    height: windowHeight,
-    // overflowY: 'scroll'
-}
-var rightContainer = {
-    // border: '1px solid black',
-    // outlineStyle: 'solid',
-    // outlineColor: 'green',
-    // width: windowWidth - 100,
-    // float: 'right',
-    height: '100%'
-}
-
-// // Trying to get the div width to update when window is resized
-// document.getElementsByTagName("BODY")[0].onresize = function() {myFunction()};
-// function myFunction() {
-//   x = $(window).width() -60;
-//   rightContainer = {
-//     border: '1px solid black',
-//     outlineStyle: 'solid',
-//     outlineColor: 'green',
-//     width: x - 80,
-//     float: 'right',
-//     height: '100%'
-// }
-//   console.log(x)
-// }
 
 function mapStateToProps(state) {
     return {

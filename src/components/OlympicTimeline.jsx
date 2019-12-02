@@ -42,7 +42,7 @@ class OlympicTimeline extends Component {
     render() {
 
         return (
-            <div className="individualTimeline" style={timelineDivStyle} 
+            <div className="individual-timeline" style={timelineDivStyle} 
             onClick={this.clickHandle}>
 
 
@@ -50,9 +50,9 @@ class OlympicTimeline extends Component {
                     <Events>
                         {
                             this.state.isSelected ?
-                                <TextEvent style={buttonStyle} date={this.state.curYear} text="" marker={() => this.CustomCloseMarker()}></TextEvent>
+                                <TextEvent className="textButton" date={this.state.curYear} text="" marker={() => this.CustomCloseMarker()}></TextEvent>
                                 :
-                                <TextEvent style={buttonStyle} date={this.state.curYear} text="" marker={() => this.CustomOpenMarker()}></TextEvent>
+                                <TextEvent className="textButton" date={this.state.curYear} text="" marker={() => this.CustomOpenMarker()}></TextEvent>
                         }
 
                     </Events>
@@ -75,10 +75,6 @@ function mapDispatchToProps(dispatch) {
 export default connect(null, mapDispatchToProps)(OlympicTimeline);;
 
 
-const buttonStyle = {
-    border: '4px solid black',
-    borderColor: '#893011'
-}
 const dotStyle = {
     position: 'absolute',
     left: '45px',
@@ -86,9 +82,6 @@ const dotStyle = {
     userSelect: "none"
 }
 const timelineDivStyle = {
-    // border: '1px solid black',
-    // outlineStyle: 'solid',
-    // outlineColor: 'blue',
     width: '90px',
     float: 'left',
     height: '100%'

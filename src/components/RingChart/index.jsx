@@ -17,11 +17,11 @@ export class RingChart extends Component {
         const { radius = 100, innerGap = 50, width = 750, height = 450, year = 1900, data} = this.props;
 
         var continents = {
-            "blue": ["Europe", "EU"], 
-            "black": ["Africa", "AF"], 
-            "red": ["Americas", "AM"], 
-            "yellow": ["Asia", "AS"], 
-            "green": ["Oceania", "OC"] 
+            "#0070c0": ["Oceania", "OC"], //blue
+            "black": ["Africa", "AF"], //black
+            "#ec213e": ["Americas", "AM"], //red
+            "#ffb222": ["Asia", "AS"], //yellow
+            "#00a046": ["Europe", "EU"], //green
         };
 
 
