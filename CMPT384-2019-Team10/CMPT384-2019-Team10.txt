@@ -1,0 +1,17 @@
+384 Project
+Fall 2019
+
+Members:
+Ishan Saxena: iss469
+Ricardo Rheeder: rir954
+
+App website: https://saxena-ishan.github.io/cmpt-384-project/
+
+Instructions if weblink is broken:
+1. Download Node.js
+2. Open a UNIX command-line tool in the project's directory
+3. Run the command: npm install
+4. Run the command: npm run start
+
+Instructions within interface:
+1. Select a year from within the vertical timeline bar to display the year's corresponding Olympic Rings Graph
