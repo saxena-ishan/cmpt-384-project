@@ -84,9 +84,9 @@ const dotStyle = {
     left: '45px'
 }
 const timelineDivStyle = {
-    border: '1px solid black',
-    outlineStyle: 'solid',
-    outlineColor: 'blue',
+    // border: '1px solid black',
+    // outlineStyle: 'solid',
+    // outlineColor: 'blue',
     width: '90px',
     float: 'left',
     height: '100%'
