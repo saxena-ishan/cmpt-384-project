@@ -19,13 +19,13 @@ class Home extends Component {
     componentDidMount() {
         const { actions } = this.props;
 
-        json("/assets/data/MedalTally.json").then((response) => {
+        json("./assets/data/MedalTally.json").then((response) => {
             actions.setMedalTally(response);
             
         });
 
         
-        json("/assets/data/TopGames.json").then((response) => {
+        json("./assets/data/TopGames.json").then((response) => {
             actions.setTopGames(response);
         });
     };
