@@ -8,21 +8,6 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import OlympicTimeline from '../components/OlympicTimeline';
 
-const renderThumb = ({ style, ...props }) => {
-    const thumbStyle = {
-      borderRadius: 6,
-      backgroundColor: 'rgba(35, 49, 86, 0.8)'
-    };
-    return <div style={{ ...style, ...thumbStyle }} {...props} />;
-  };
-  
-  const CustomScrollbars = props => (
-    <Scrollbars
-      renderThumbHorizontal={renderThumb}
-      renderThumbVertical={renderThumb}
-      {...props}
-    />
-  );
   
 
 class Home extends Component {
@@ -96,14 +81,25 @@ class Home extends Component {
 }
 
 
+const renderThumb = ({ style, ...props }) => {
+    const thumbStyle = {
+      borderRadius: 6,
+      backgroundColor: '#bc451b'
+    };
+    return <div style={{ ...style, ...thumbStyle }} {...props} />;
+  };
+  
+  const CustomScrollbars = props => (
+    <Scrollbars
+      renderThumbHorizontal={renderThumb}
+      renderThumbVertical={renderThumb}
+      {...props}
+    />
+  );
 
 var windowWidth = $(window).width() -60;
 var windowHeight = $(window).height() -250;
 
-const titleStyle={
-    position: 'relative',
-    display: 'grid'
-}
 const imageStyle={
     position: 'relative',
     display: 'grid',
