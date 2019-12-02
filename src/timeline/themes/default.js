@@ -6,10 +6,10 @@ const defaultTheme = {
   Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
   },
   timelineTrack: {
-    left: `70%`,
-    width: '2px',
+    left: `60%`,
+    width: '3px',
     height: '100%',
-    backgroundColor: '#ee18b6',
+    backgroundColor: '#bc451b',
     content: "''",
   },
   marker: {
@@ -50,12 +50,14 @@ const defaultTheme = {
     color: '#fff',
   },
   date: {
-    backgroundColor: '#ec24b5',
+    backgroundColor: '#bc451b',
     padding: '4px',
     color: '#fff',
     borderRadius: '4px',
     fontWeight: 500,
     fontSize: '.85rem',
+    border: '2px solid black',
+    borderColor: '#893011'
   },
   imageAtom: {
     objectFit: 'cover',

@@ -38,5 +38,7 @@ TextEvent.propTypes = {
 };
 
 const quickStyle = {
-  left: '-15%'
+  left: '-15%',
+  border: '2px solid black',
+  borderColor: '#893011'
 }

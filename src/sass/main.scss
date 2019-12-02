@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(rgb(255, 255, 255), #999999);
+    background-image: linear-gradient(rgb(49, 49, 49), #555555);
     background-size: cover;
     background-position: center;
     color: #555;
@@ -22,6 +22,19 @@ body {
         cursor: pointer;
     }
 }
+
+.scrollStyle {
+    // margin: 20px;
+    padding: 2px;
+    width: 100px;
+    height: 70vh;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    float:left;
+    /* background-color: #19233c; */
+    /* color: #fff; */
+  }
+  
 
 // import base - contains global styles, such as resets, typography, colors
 // import components- contains each self-contained component in its own .scss partial

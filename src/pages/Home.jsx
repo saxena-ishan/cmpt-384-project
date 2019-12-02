@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setMedalTally, setTopGames, updateYears } from '../redux/actions/actions'
 import { json } from 'd3';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import OlympicTimeline from '../components/OlympicTimeline';
+
+  
 
 class Home extends Component {
 
@@ -51,12 +54,17 @@ class Home extends Component {
                 <div className="page-title">
                     <img src="assets/olympicRings.png"  style={imageStyle} alt="Olympic Rings" width="470" height="240"></img>
                 </div>
-
+                <div className="scrollStyle">
+                <CustomScrollbars autoHide autoHideTimeout={500} autoHideDuration={200}>
                 <div className="timeline-div" style={leftContainer}>
                     <div className="olympicTimeline">
                         {this.createEvent()}
                     </div>
                 </div>
+                </CustomScrollbars>
+
+                </div>
+
 
                 {<div className="stats-div" style={rightContainer}>
                     {
@@ -72,18 +80,29 @@ class Home extends Component {
 }
 
 
+const renderThumb = ({ style, ...props }) => {
+    const thumbStyle = {
+      borderRadius: 6,
+      backgroundColor: '#bc451b'
+    };
+    return <div style={{ ...style, ...thumbStyle }} {...props} />;
+  };
+  
+  const CustomScrollbars = props => (
+    <Scrollbars
+      renderThumbHorizontal={renderThumb}
+      renderThumbVertical={renderThumb}
+      {...props}
+    />
+  );
 
 var windowWidth = $(window).width() -60;
 var windowHeight = $(window).height() -250;
 
-const titleStyle={
-    position: 'relative',
-    display: 'grid'
-}
 const imageStyle={
     position: 'relative',
     display: 'grid',
-    left: windowWidth - (windowWidth/2) - 235 -15
+    left: windowWidth - (windowWidth/2) - 235 -20
 }
 
 const divStyle = {
@@ -99,7 +118,7 @@ var leftContainer = {
     width: '100px',
     float: 'left',
     height: windowHeight,
-    overflowY: 'scroll'
+    // overflowY: 'scroll'
 }
 var rightContainer = {
     border: '1px solid black',
