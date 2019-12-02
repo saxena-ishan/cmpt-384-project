@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 export class RingChart extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     
         this.state = {
              
@@ -23,6 +23,7 @@ export class RingChart extends Component {
             "yellow": ["Asia", "AS"], 
             "green": ["Oceania", "OC"] 
         };
+
 
         var initialXUpper =  (width - ((3 * (radius * 2)) + (innerGap * 2))) / 2;
         var initialXLower =  (width - ((2 * (radius * 2)) + (innerGap * 1))) / 2; 
@@ -63,7 +64,6 @@ export class RingChart extends Component {
                         }
                     })
                 }
-                
             </svg>
         )
     }
