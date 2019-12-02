@@ -49,7 +49,6 @@ class Home extends Component {
             <div style={divStyle}>
 
                 <div className="page-title">
-                    {/* <text className="boilerplate-div" style={titleStyle}>react-boilerplate</text> */}
                     <img src="assets/olympicRings.png"  style={imageStyle} alt="Olympic Rings" width="470" height="240"></img>
                 </div>
 

@@ -27,6 +27,7 @@ body {
 // import components- contains each self-contained component in its own .scss partial
 @import './components/RingChart/ring';
 @import './components/RingChart/index';
+@import './components/statsContainer';
 
 // import pages contains page-specific styling
 

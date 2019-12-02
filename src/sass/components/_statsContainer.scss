@@ -1,0 +1,24 @@
+.stats-container-root {
+    &>div {
+        display: inline-block;
+    }
+    .edition-tag-container {
+        border: 2px solid red;
+        text-align: center;
+        text-decoration: none;
+        font-size: 50px;
+        color: #5d6068d6;
+        text-transform: uppercase;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+        &:hover {
+          color: Black;
+        cursor: pointer;
+        }
+        .edition-tag {
+
+        }
+    }
+}
