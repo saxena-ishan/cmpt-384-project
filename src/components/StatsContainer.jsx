@@ -5,21 +5,22 @@ import { TopGames } from "./TopGames"
 export default class StatsContainer extends Component {
     constructor(props) {
         super(props)
-        this.state = {currentYear: "XXXX"}
-    }
-
-    // setting the state of current year will update the inner-label
-    setYear(y){
-        this.setState({ currentYear: y })
     }
 
     render() {
+
+        const { year, data } = this.props;
         return (
             <div className="stats-container-root">
-                <div style={containerHeading} className="boilerplate-div">{this.state.currentYear}</div>
+                <div style={containerHeading} className="boilerplate-div">{year}</div>
+                
+                <div>
+                    <RingChart year={year} data={data}/>
+                </div>
+                {/* <div>
+                    <TopGames />
+                </div> */}
 
-                <RingChart />
-                <TopGames />
             </div>
         )
     }

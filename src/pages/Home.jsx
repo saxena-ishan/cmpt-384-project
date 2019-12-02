@@ -36,8 +36,10 @@ class Home extends Component {
 
         json("/assets/data/MedalTally.json").then((response) => {
             actions.setMedalTally(response);
+            
         });
 
+        
         json("/assets/data/TopGames.json").then((response) => {
             actions.setTopGames(response);
         });
@@ -58,7 +60,7 @@ class Home extends Component {
 
     render() {
 
-        const { years } = this.props;
+        const { years, medalTally } = this.props;
 
         return (
 
@@ -80,13 +82,13 @@ class Home extends Component {
                 </div>
 
 
-                <div className="stats-div" style={rightContainer}>
+                {<div className="stats-div" style={rightContainer}>
                     {
                         years.map((y, i) => {
-                          return (<StatsContainer year={y} key={i}/>);
+                          return (<StatsContainer year={y} key={i} data={medalTally[y]}/>);
                         })
                     }
-                </div>
+                </div>}
             </div>
         )
 
@@ -150,7 +152,8 @@ var rightContainer = {
 function mapStateToProps(state) {
     return {
         years: state.delta.years,
-        globalYears: state.delta.globalYears
+        globalYears: state.delta.globalYears,
+        medalTally: state.delta.medalTally
     };
 }
 
@@ -160,4 +163,9 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);;
+function sleep(delay) {
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
