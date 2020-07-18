@@ -17,7 +17,7 @@
         "@merc/react-timeline": "^0.1.42",
         "core-js": "^3.1.4",
         "d3": "^5.12.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "markdown-to-jsx": "^6.10.3",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
