@@ -18,7 +18,7 @@
         "core-js": "^3.1.4",
         "d3": "^5.12.0",
         "lodash": "^4.17.15",
-        "markdown-to-jsx": "^6.10.3",
+        "markdown-to-jsx": "^6.11.4",
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-custom-scroll": "^4.1.5",
